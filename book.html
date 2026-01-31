@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book a Service - Northline Home Services</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container nav-container">
+            <div class="logo">
+                <img src="logo.png" alt="Northline Home Services">
+            </div>
+            <button class="mobile-menu-toggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="pricing.html">Pricing</a></li>
+                <li><a href="policies.html">Policies</a></li>
+                <li><a href="faq.html">FAQ</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="book.html" class="btn-primary active">Book Now</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="page-header">
+        <div class="container">
+            <h1>Book Your Cleaning Service</h1>
+            <p>Complete the form below and we'll send you a price quote within 24 hours</p>
+        </div>
+    </section>
+
+    <section class="booking-form-section">
+        <div class="container">
+            <div class="booking-intro">
+                <div class="booking-notice">
+                    <h3>Before You Book</h3>
+                    <ul>
+                        <li>Review our <a href="services.html">Services</a> to choose the right tier</li>
+                        <li>Check our <a href="pricing.html">Pricing</a> for estimated costs</li>
+                        <li>Read our <a href="policies.html">Policies</a> regarding deposits and cancellations</li>
+                        <li>A 50% non-refundable deposit is required to confirm all bookings</li>
+                    </ul>
+                </div>
+            </div>
+
+            <form id="bookingForm" class="booking-form">
+                <div class="form-section">
+                    <h2>Contact Information</h2>
+                    
+                    <div class="form-group">
+                        <label for="fullName">Full Name <span class="required">*</span></label>
+                        <input type="text" id="fullName" name="fullName" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="messengerName">Facebook Messenger Name <span class="required">*</span></label>
+                        <input type="text" id="messengerName" name="messengerName" required>
+                        <small>Required for booking confirmations and communication</small>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="phone">Phone Number <span class="required">*</span></label>
+                            <input type="tel" id="phone" name="phone" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email Address (optional)</label>
+                            <input type="email" id="email" name="email">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h2>Property Location</h2>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="barangay">Barangay / Area <span class="required">*</span></label>
+                            <input type="text" id="barangay" name="barangay" required placeholder="e.g., Carmen, El Salvador, Kauswagan">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="city">City / Municipality <span class="required">*</span></label>
+                            <input type="text" id="city" name="city" value="Cagayan de Oro" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="address">Full Address <span class="required">*</span></label>
+                        <input type="text" id="address" name="address" required placeholder="House/Unit number, Street Name">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="landmarks">Nearby Landmarks <span class="required">*</span></label>
+                        <input type="text" id="landmarks" name="landmarks" required placeholder="e.g., near SM Carmen, across from St. Peter's Church">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="directions">Additional Directions</label>
+                        <textarea id="directions" name="directions" rows="3" placeholder="Gate code, parking instructions, how to find your property, etc."></textarea>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h2>Service Details</h2>
+                    
+                    <div class="form-group">
+                        <label for="serviceType">Service Type <span class="required">*</span></label>
+                        <select id="serviceType" name="serviceType" required>
+                            <option value="">-- Select Service --</option>
+                            <option value="basic">Basic Cleaning</option>
+                            <option value="standard">Standard Cleaning</option>
+                            <option value="deep">Deep Cleaning</option>
+                        </select>
+                        <small><a href="services.html" target="_blank">View service tier details →</a></small>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="propertyType">Property Type <span class="required">*</span></label>
+                            <select id="propertyType" name="propertyType" required>
+                                <option value="">-- Select --</option>
+                                <option value="apartment">Apartment/Condo</option>
+                                <option value="house">House</option>
+                                <option value="office">Small Office</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="bedrooms">Number of Bedrooms</label>
+                            <input type="number" id="bedrooms" name="bedrooms" min="0" max="10">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="bathrooms">Number of Bathrooms</label>
+                            <input type="number" id="bathrooms" name="bathrooms" min="0" max="10">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="squareMeters">Approximate Size (square meters)</label>
+                        <input type="number" id="squareMeters" name="squareMeters" min="10" max="1000" placeholder="Optional">
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="preferredDate">Preferred Date <span class="required">*</span></label>
+                            <input type="date" id="preferredDate" name="preferredDate" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="preferredTime">Preferred Time <span class="required">*</span></label>
+                            <select id="preferredTime" name="preferredTime" required>
+                                <option value="">-- Select Time --</option>
+                                <option value="7-9am">7:00 AM - 9:00 AM</option>
+                                <option value="9-11am">9:00 AM - 11:00 AM</option>
+                                <option value="11am-1pm">11:00 AM - 1:00 PM</option>
+                                <option value="1-3pm">1:00 PM - 3:00 PM</option>
+                                <option value="3-5pm">3:00 PM - 5:00 PM</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h2>Additional Information</h2>
+                    
+                    <div class="form-group">
+                        <label for="addons">Add-On Services (optional)</label>
+                        <div class="checkbox-group">
+                            <label><input type="checkbox" name="addons" value="laundry"> Laundry Service</label>
+                            <label><input type="checkbox" name="addons" value="fridge"> Refrigerator Deep Clean</label>
+                            <label><input type="checkbox" name="addons" value="windows"> Interior Window Washing (Extended)</label>
+                            <label><input type="checkbox" name="addons" value="blinds"> Blinds Deep Clean</label>
+                            <label><input type="checkbox" name="addons" value="event"> Post-Event Cleanup</label>
+                            <label><input type="checkbox" name="addons" value="movein"> Move-In/Move-Out Cleaning</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="specialRequests">Special Requests / Notes</label>
+                        <textarea id="specialRequests" name="specialRequests" rows="4" placeholder="Tell us about: &#10;- Pets in the home (type, temperament) &#10;- Allergies or product sensitivities &#10;- Access instructions &#10;- Areas of special concern &#10;- Anything else we should know"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Will you be present during cleaning? <span class="required">*</span></label>
+                        <div class="radio-group">
+                            <label><input type="radio" name="presence" value="yes" required> Yes, I'll be home</label>
+                            <label><input type="radio" name="presence" value="no"> No, I'll provide access</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h2>Terms & Privacy Agreement</h2>
+                    
+                    <div class="terms-links">
+                        <button type="button" class="terms-button" id="viewTermsBtn">
+                            <span>📄 Read Terms & Conditions</span>
+                            <span class="read-status" id="termsStatus">Not Read</span>
+                        </button>
+                        <button type="button" class="terms-button" id="viewPrivacyBtn">
+                            <span>🔒 Read Privacy Policy</span>
+                            <span class="read-status" id="privacyStatus">Not Read</span>
+                        </button>
+                    </div>
+
+                    <div class="agreement-checkbox">
+                        <label>
+                            <input type="checkbox" id="agreeTerms" disabled required>
+                            <span>I have read, understood, and agree to the Terms & Conditions and Privacy Policy. I understand that a 50% non-refundable deposit is required to confirm my booking.</span>
+                        </label>
+                        <p class="checkbox-note">You must read both documents to enable this checkbox.</p>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn-primary btn-large">Submit Booking Request</button>
+                    <p class="form-note">We'll review your request and send you a price quote within 24 hours.</p>
+                </div>
+            </form>
+
+            <div class="alternate-booking">
+                <h3>Prefer to Book via Messenger?</h3>
+                <p>You can also send us your booking details directly:</p>
+                <a href="https://m.me/northlinehomeservices" target="_blank" class="btn-messenger btn-large">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2C6.477 2 2 6.145 2 11.243c0 2.912 1.448 5.506 3.715 7.215V22l3.38-1.854c.902.25 1.853.384 2.905.384 5.523 0 10-4.145 10-9.243C22 6.145 17.523 2 12 2zm1.031 12.44l-2.561-2.732-5 2.732 5.5-5.838 2.621 2.732 4.94-2.732-5.5 5.838z"/>
+                    </svg>
+                    Message Us on Facebook
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Terms Modal -->
+    <div id="termsModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Terms & Conditions</h2>
+                <button class="modal-close" id="closeTermsModal">&times;</button>
+            </div>
+            <div class="modal-body" id="termsBody">
+                <iframe src="terms.html" class="document-iframe"></iframe>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-primary" id="acceptTermsBtn" disabled>I Understand</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Privacy Modal -->
+    <div id="privacyModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Privacy Policy</h2>
+                <button class="modal-close" id="closePrivacyModal">&times;</button>
+            </div>
+            <div class="modal-body" id="privacyBody">
+                <iframe src="privacy.html" class="document-iframe"></iframe>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-primary" id="acceptPrivacyBtn" disabled>I Understand</button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h4>Northline Home Services</h4>
+                    <p>Professional cleaning for residential and small office spaces in El Salvador City and nearby CDO areas.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="pricing.html">Pricing</a></li>
+                        <li><a href="policies.html">Policies</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                        <li><a href="book.html">Book Now</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <p>Email: <a href="mailto:info@northlinehomeservices.com">info@northlinehomeservices.com</a></p>
+                    <p>Facebook: <a href="https://m.me/northlinehomeservices" target="_blank">Message Us</a></p>
+                    <p>Hours: Mon-Sat, 7:00 AM - 6:00 PM</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="terms.html">Terms & Conditions</a></li>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Northline Home Services. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="booking.js"></script>
+</body>
+</html>
