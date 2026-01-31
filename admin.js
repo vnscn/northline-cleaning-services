@@ -73,18 +73,16 @@ function updateStats(bookings) {
 }
 
 function calculateRevenue(bookings) {
-    // Estimate revenue based on service type
-    const priceEstimates = {
-        'basic': 1150,      // Average of 800-1500
-        'standard': 2250,   // Average of 1500-3000
-        'deep': 3750        // Average of 2500-5000
-    };
-    
-    return bookings
-        .filter(b => b.status === 'Completed')
-        .reduce((total, booking) => {
-            return total + (priceEstimates[booking.serviceType] || 0);
-        }, 0);
+   return bookings
+    .filter(b => b.status === 'Completed')
+    .reduce((total, booking) => {
+        const priceEstimates = {
+            'basic': 1150,      // Average of 800-1500
+            'standard': 2250,   // Average of 1500-3000
+            'deep': 3750        // Average of 2500-5000
+        };
+        return total + (booking.price || estimated[booking.serviceType] || 0);
+    }, 0);
 }
 
 // ==================
@@ -100,24 +98,25 @@ function loadBookingsTable(bookings) {
     }
     
     tbody.innerHTML = bookings.map(booking => `
-        <tr>
-            <td>${booking.id}</td>
-            <td>${booking.fullName}</td>
-            <td>${formatServiceType(booking.serviceType)}</td>
-            <td>${booking.preferredDate}</td>
-            <td><span class="status-badge status-${booking.status.toLowerCase()}">${booking.status}</span></td>
-            <td>
-                <button class="action-btn btn-view" onclick="viewBooking('${booking.id}')">View</button>
-                <select onchange="updateStatus('${booking.id}', this.value)" style="padding: 0.5rem; border-radius: 4px; border: 2px solid var(--gray-300);">
-                    <option value="">Change Status</option>
-                    <option value="Pending" ${booking.status === 'Pending' ? 'selected' : ''}>Pending</option>
-                    <option value="Confirmed" ${booking.status === 'Confirmed' ? 'selected' : ''}>Confirmed</option>
-                    <option value="Completed" ${booking.status === 'Completed' ? 'selected' : ''}>Completed</option>
-                    <option value="Cancelled" ${booking.status === 'Cancelled' ? 'selected' : ''}>Cancelled</option>
-                </select>
-            </td>
-        </tr>
-    `).join('');
+    <tr>
+        <td>${booking.id}</td>
+        <td>${booking.fullName}</td>
+        <td>${formatServiceType(booking.serviceType)}</td>
+        <td>₱${(booking.price || 0).toLocaleString()}</td>   <!-- NEW price column -->
+        <td>${booking.preferredDate}</td>
+        <td><span class="status-badge status-${booking.status.toLowerCase()}">${booking.status}</span></td>
+        <td>
+            <button class="action-btn btn-view" onclick="viewBooking('${booking.id}')">View</button>
+            <select onchange="updateStatus('${booking.id}', this.value)" style="padding: 0.5rem; border-radius: 4px; border: 2px solid var(--gray-300);">
+                <option value="">Change Status</option>
+                <option value="Pending" ${booking.status === 'Pending' ? 'selected' : ''}>Pending</option>
+                <option value="Confirmed" ${booking.status === 'Confirmed' ? 'selected' : ''}>Confirmed</option>
+                <option value="Completed" ${booking.status === 'Completed' ? 'selected' : ''}>Completed</option>
+                <option value="Cancelled" ${booking.status === 'Cancelled' ? 'selected' : ''}>Cancelled</option>
+            </select>
+        </td>
+    </tr>
+`).join('');
 }
 
 function formatServiceType(type) {
@@ -207,6 +206,13 @@ function viewBooking(bookingId) {
             <div>${booking.addons ? (Array.isArray(booking.addons) ? booking.addons.join(', ') : booking.addons) : 'None'}</div>
         </div>
         <div class="detail-row">
+        <div class="detail-label">Price (₱):</div>
+        <div>
+            <input type="number" id="bookingPrice" value="${booking.price || ''}" min="0" step="100" style="width: 150px; padding: 0.5rem;">
+            <small style="color: #666;">(leave blank to use default estimate)</small>
+        </div>
+    </div>
+        <div class="detail-row">
             <div class="detail-label">Will be present:</div>
             <div>${booking.presence === 'yes' ? 'Yes' : 'No'}</div>
         </div>
@@ -217,6 +223,12 @@ function viewBooking(bookingId) {
         <div class="detail-row">
             <div class="detail-label">Submitted:</div>
             <div>${new Date(booking.submittedAt).toLocaleString()}</div>
+        </div>
+        <div style="margin-top: 2rem; text-align: center;">
+            <button class="action-btn" style="background: #dc3545; color: white; border: none; padding: 0.8rem 1.5rem; border-radius: 6px; cursor: pointer; font-weight: 600;"
+                    onclick="deleteBooking('${booking.id}')">
+                Delete This Booking
+            </button>
         </div>
     `;
     
@@ -238,7 +250,7 @@ function updateStatus(bookingId, newStatus) {
     }
 }
 
-function saveNotes() {
+function saveBookingChanges() {
     if (!currentBookingId) return;
     
     const bookings = JSON.parse(localStorage.getItem('bookings') || '[]');
@@ -246,14 +258,37 @@ function saveNotes() {
     
     if (index !== -1) {
         bookings[index].notes = document.getElementById('bookingNotes').value;
+        
+        const priceInput = document.getElementById('bookingPrice').value.trim();
+        if (priceInput !== '') {
+            bookings[index].price = parseFloat(priceInput) || 0;
+        } else {
+            delete bookings[index].price;
+        }
+        
         localStorage.setItem('bookings', JSON.stringify(bookings));
-        alert('Notes saved successfully');
+        alert('Changes saved successfully');
+        loadDashboardData();  // refresh table & stats
     }
 }
 
 function closeModal() {
     document.getElementById('bookingModal').classList.remove('show');
     currentBookingId = null;
+}
+function deleteBooking(bookingId) {
+    if (!confirm('Are you sure you want to PERMANENTLY delete this booking? This cannot be undone.')) {
+        return;
+    }
+    
+    let bookings = JSON.parse(localStorage.getItem('bookings') || '[]');
+    bookings = bookings.filter(b => b.id !== bookingId);
+    
+    localStorage.setItem('bookings', JSON.stringify(bookings));
+    alert('Booking deleted successfully');
+    
+    closeModal();
+    loadDashboardData();  // refresh table, stats, charts
 }
 
 // ==================
