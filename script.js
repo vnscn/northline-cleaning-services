@@ -1,5 +1,5 @@
 // ===================================
-// NORTHLINE HOME SERVICES - MAIN JS
+// NORTHLINE CLEANING SERVICES - MAIN JS
 // ===================================
 
 document.addEventListener('DOMContentLoaded', function() {
