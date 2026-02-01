@@ -3,7 +3,7 @@
 // ===================================
 
 // IMPORTANT: Change this password in production!
-const ADMIN_PASSWORD = 'northline2025';
+const ADMIN_PASSWORD = 'reXde2-xyvbif-fecnem';
 
 let currentBookingId = null;
 let bookingsChart, serviceChart, revenueChart, cancellationChart;
