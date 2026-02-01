@@ -1,5 +1,5 @@
 // ===================================
-// NORTHLINE HOME SERVICES - ADMIN JS
+// NORTHLINE CLEANING SERVICES - ADMIN JS
 // ===================================
 
 // IMPORTANT: Change this password in production!
